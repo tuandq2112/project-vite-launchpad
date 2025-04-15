@@ -30,6 +30,19 @@ export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
   }
 };
 
+export const poster = async (args: string | [string, AxiosRequestConfig]) => {
+  try {
+    const [url, config] = Array.isArray(args) ? args : [args];
+
+    const res = await axiosInstance.post(url, { ...config });
+
+    return res.data;
+  } catch (error) {
+    console.error('Failed to fetch:', error);
+    throw error;
+  }
+};
+
 // ----------------------------------------------------------------------
 const PREFIX = '/launchpad/api/v1/user';
 
@@ -41,7 +54,7 @@ export const endpoints = {
     labels: '/api/mail/labels',
   },
   post: {
-    list: '/api/post/list',
+    list: '/launchpad/api/v2/project/list',
     details: '/api/post/details',
     latest: '/api/post/latest',
     search: '/api/post/search',

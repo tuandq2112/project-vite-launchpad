@@ -73,11 +73,7 @@ export function JwtSignInView() {
 
   const renderForm = () => (
     <Box sx={{ gap: 3, display: 'flex', flexDirection: 'column' }}>
-      <Field.Text
-        name="email"
-        placeholder="Mật khẩu"
-        slotProps={{ inputLabel: { shrink: true } }}
-      />
+      <Field.Text name="email" placeholder="Email" slotProps={{ inputLabel: { shrink: true } }} />
 
       <Box sx={{ gap: 1.5, display: 'flex', flexDirection: 'column' }}>
         <Link
@@ -87,7 +83,7 @@ export function JwtSignInView() {
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}
         >
-          Forgot password?
+          Quên mật khẩu?
         </Link>
 
         <Field.Text
@@ -120,7 +116,7 @@ export function JwtSignInView() {
         loading={isSubmitting}
         loadingIndicator="Sign in..."
       >
-        Sign in
+        Đăng nhập
       </LoadingButton>
       <div>Hoặc</div>
       <Button variant="outlined">Sign in with Google</Button>

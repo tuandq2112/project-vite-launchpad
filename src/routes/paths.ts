@@ -1,12 +1,14 @@
 // ----------------------------------------------------------------------
 
+import { kebabCase } from 'es-toolkit';
+
 const ROOTS = {
   AUTH: '/auth',
   DASHBOARD: '/dashboard',
 };
 
 // ----------------------------------------------------------------------
-
+const MOCK_UP = 'The Future of Renewable Energy: Innovations and Challenges Ahead';
 export const paths = {
   faqs: '/faqs',
   minimalStore: 'https://mui.com/store/items/minimal-dashboard/',
@@ -45,5 +47,25 @@ export const paths = {
     root: ROOTS.DASHBOARD,
     two: `${ROOTS.DASHBOARD}/two`,
     three: `${ROOTS.DASHBOARD}/three`,
+    post: {
+      root: `${ROOTS.DASHBOARD}/post`,
+      new: `${ROOTS.DASHBOARD}/post/new`,
+      details: (title: string) => `${ROOTS.DASHBOARD}/post/${kebabCase(title)}`,
+      edit: (title: string) => `${ROOTS.DASHBOARD}/post/${kebabCase(title)}/edit`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/post/${kebabCase(MOCK_UP)}`,
+        edit: `${ROOTS.DASHBOARD}/post/${kebabCase(MOCK_UP)}/edit`,
+      },
+    },
+  },
+  post: {
+    root: `${ROOTS.DASHBOARD}/post`,
+    new: `${ROOTS.DASHBOARD}/post/new`,
+    details: (title: string) => `${ROOTS.DASHBOARD}/post/${kebabCase(title)}`,
+    edit: (title: string) => `${ROOTS.DASHBOARD}/post/${kebabCase(title)}/edit`,
+    demo: {
+      details: `${ROOTS.DASHBOARD}/post/${kebabCase(MOCK_UP)}`,
+      edit: `${ROOTS.DASHBOARD}/post/${kebabCase(MOCK_UP)}/edit`,
+    },
   },
 };
