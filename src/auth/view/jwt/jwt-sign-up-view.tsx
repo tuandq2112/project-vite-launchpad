@@ -52,16 +52,8 @@ export function JwtSignUpView() {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const defaultValues: SignUpSchemaType = {
-    firstName: 'Hello',
-    lastName: 'Friend',
-    email: 'hello@gmail.com',
-    password: '@2Minimal',
-  };
-
   const methods = useForm<SignUpSchemaType>({
     resolver: zodResolver(SignUpSchema),
-    defaultValues,
   });
 
   const {
@@ -74,12 +66,10 @@ export function JwtSignUpView() {
       await signUp({
         email: data.email,
         password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName,
+        username: data.firstName + ' ' + data.lastName,
       });
-      await checkUserSession?.();
 
-      router.refresh();
+      router.push(paths.auth.jwt.signIn);
     } catch (error) {
       console.error(error);
       const feedbackMessage = getErrorMessage(error);
@@ -142,7 +132,7 @@ export function JwtSignUpView() {
   return (
     <>
       <FormHead
-        title="Get started absolutely free"
+        title="Đăng ký"
         description={
           <>
             {`Already have an account? `}

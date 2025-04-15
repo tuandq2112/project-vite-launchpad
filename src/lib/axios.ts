@@ -31,16 +31,10 @@ export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
 };
 
 // ----------------------------------------------------------------------
+const PREFIX = '/launchpad/api/v1/user';
 
 export const endpoints = {
-  chat: '/api/chat',
-  kanban: '/api/kanban',
-  calendar: '/api/calendar',
-  auth: {
-    me: '/api/auth/me',
-    signIn: '/api/auth/sign-in',
-    signUp: '/api/auth/sign-up',
-  },
+  auth: { signIn: `${PREFIX}/login`, signUp: `${PREFIX}/register` },
   mail: {
     list: '/api/mail/list',
     details: '/api/mail/details',
