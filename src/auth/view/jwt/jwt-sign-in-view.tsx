@@ -63,6 +63,8 @@ export function JwtSignInView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await signInWithPassword({ email: data.email, password: data.password });
+      await checkUserSession?.();
+
       router.push(paths.dashboard.root);
     } catch (error) {
       console.error(error);
@@ -76,16 +78,6 @@ export function JwtSignInView() {
       <Field.Text name="email" placeholder="Email" slotProps={{ inputLabel: { shrink: true } }} />
 
       <Box sx={{ gap: 1.5, display: 'flex', flexDirection: 'column' }}>
-        <Link
-          component={RouterLink}
-          href="#"
-          variant="body2"
-          color="inherit"
-          sx={{ alignSelf: 'flex-end' }}
-        >
-          Quên mật khẩu?
-        </Link>
-
         <Field.Text
           name="password"
           placeholder="Mật khẩu"
@@ -105,8 +97,16 @@ export function JwtSignInView() {
             },
           }}
         />
+        <Link
+          component={RouterLink}
+          href="#"
+          variant="body2"
+          color="inherit"
+          sx={{ alignSelf: 'flex-end' }}
+        >
+          Quên mật khẩu?
+        </Link>
       </Box>
-
       <LoadingButton
         fullWidth
         color="inherit"
@@ -119,7 +119,7 @@ export function JwtSignInView() {
         Đăng nhập
       </LoadingButton>
       <div>Hoặc</div>
-      <Button variant="outlined">Sign in with Google</Button>
+      <Button variant="outlined">Đăng nhập với Google</Button>
     </Box>
   );
 
