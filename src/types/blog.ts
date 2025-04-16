@@ -38,6 +38,23 @@ export type IPostComment = {
 
 export type IPostItem = {
   id: string;
+  name: string;
+  projectId: string;
+  address: string;
+  description: string;
+  status: string;
+  owner: {
+    username: string;
+    email: string;
+    id: string;
+  };
+  icon: {
+    content: string;
+    contentType: string;
+    fileName: string;
+    hash: string;
+  };
+  //unsused fields
   title: string;
   tags: string[];
   publish: string;
@@ -46,7 +63,6 @@ export type IPostItem = {
   metaTitle: string;
   totalViews: number;
   totalShares: number;
-  description: string;
   totalComments: number;
   createdAt: IDateValue;
   totalFavorites: number;

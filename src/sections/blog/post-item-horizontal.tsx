@@ -63,7 +63,6 @@ export function PostItemHorizontal({ sx, post, editHref, detailsHref, ...other }
       </MenuList>
     </CustomPopover>
   );
-
   return (
     <>
       <Card sx={[{ display: 'flex' }, ...(Array.isArray(sx) ? sx : [sx])]} {...other}>
@@ -85,11 +84,11 @@ export function PostItemHorizontal({ sx, post, editHref, detailsHref, ...other }
             }}
           >
             <Label variant="soft" color={(post.publish === 'published' && 'info') || 'default'}>
-              {post.publish}
+              {post.status}
             </Label>
 
             <Box component="span" sx={{ typography: 'caption', color: 'text.disabled' }}>
-              {fDate(post.createdAt)}
+              dd/MMM/yyyy
             </Box>
           </Box>
 
@@ -105,7 +104,7 @@ export function PostItemHorizontal({ sx, post, editHref, detailsHref, ...other }
                 }),
               ]}
             >
-              {post.title}
+              {post.name}
             </Link>
 
             <Typography
@@ -120,42 +119,6 @@ export function PostItemHorizontal({ sx, post, editHref, detailsHref, ...other }
               {post.description}
             </Typography>
           </Stack>
-
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <IconButton
-              color={menuActions.open ? 'inherit' : 'default'}
-              onClick={menuActions.onOpen}
-            >
-              <Iconify icon="eva:more-horizontal-fill" />
-            </IconButton>
-
-            <Box
-              sx={{
-                gap: 1.5,
-                flexGrow: 1,
-                display: 'flex',
-                flexWrap: 'wrap',
-                typography: 'caption',
-                color: 'text.disabled',
-                justifyContent: 'flex-end',
-              }}
-            >
-              <Box sx={{ gap: 0.5, display: 'flex', alignItems: 'center' }}>
-                <Iconify icon="eva:message-circle-fill" width={16} />
-                {fShortenNumber(post.totalComments)}
-              </Box>
-
-              <Box sx={{ gap: 0.5, display: 'flex', alignItems: 'center' }}>
-                <Iconify icon="solar:eye-bold" width={16} />
-                {fShortenNumber(post.totalViews)}
-              </Box>
-
-              <Box sx={{ gap: 0.5, display: 'flex', alignItems: 'center' }}>
-                <Iconify icon="solar:share-bold" width={16} />
-                {fShortenNumber(post.totalShares)}
-              </Box>
-            </Box>
-          </Box>
         </Stack>
 
         <Box
@@ -169,8 +132,8 @@ export function PostItemHorizontal({ sx, post, editHref, detailsHref, ...other }
           }}
         >
           <Avatar
-            // alt={post.author.name}
-            // src={post.author.avatarUrl}
+            src={post.owner.username.charAt(0).toUpperCase()}
+            alt={post.owner.username.charAt(0).toUpperCase()}
             sx={{
               top: 16,
               right: 16,
@@ -178,7 +141,11 @@ export function PostItemHorizontal({ sx, post, editHref, detailsHref, ...other }
               position: 'absolute',
             }}
           />
-          <Image alt={post.title} src={post.coverUrl} sx={{ height: 1, borderRadius: 1.5 }} />
+          <Image
+            src={[post.icon.contentType, post.icon.content].join(',')}
+            alt="../assets/background/background-6.webp"
+            sx={{ height: 1, borderRadius: 1.5 }}
+          />
         </Box>
       </Card>
 
