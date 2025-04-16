@@ -15,7 +15,7 @@ import { usePathname } from '../hooks';
 // ----------------------------------------------------------------------
 
 const IndexPage = lazy(() => import('src/pages/dashboard/home'));
-const PageTwo = lazy(() => import('src/pages/dashboard/projects'));
+const ProjectsPage = lazy(() => import('src/pages/dashboard/projects'));
 const PageThree = lazy(() => import('src/pages/dashboard/statistics'));
 
 // ----------------------------------------------------------------------
@@ -41,7 +41,7 @@ export const dashboardRoutes: RouteObject[] = [
     element: CONFIG.auth.skip ? dashboardLayout() : <AuthGuard>{dashboardLayout()}</AuthGuard>,
     children: [
       { element: <IndexPage />, index: true },
-      { path: 'two', element: <PageTwo /> },
+      { path: 'projects', element: <ProjectsPage /> },
       { path: 'three', element: <PageThree /> },
     ],
   },

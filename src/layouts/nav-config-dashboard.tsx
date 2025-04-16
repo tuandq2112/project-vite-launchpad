@@ -56,7 +56,7 @@ export const navData: NavSectionProps['data'] = [
         path: paths.dashboard.root,
         icon: ICONS.dashboard,
       },
-      { title: 'Your Projects', path: paths.dashboard.two, icon: ICONS.ecommerce },
+      { title: 'Your Projects', path: paths.dashboard.projects, icon: ICONS.ecommerce },
       { title: 'Statistics', path: paths.dashboard.three, icon: ICONS.analytics },
     ],
   },

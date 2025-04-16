@@ -20,13 +20,13 @@ import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import { PostSort } from '../post-sort';
-import { PostSearch } from '../post-search';
-import { PostListHorizontal } from '../post-list-horizontal';
+import { PostSort } from '../blog/post-sort';
+import { PostSearch } from '../blog/post-search';
+import { PostListHorizontal } from '../blog/post-list-horizontal';
 
 // ----------------------------------------------------------------------
 
-export function PostListView() {
+export function ProjectView() {
   const { posts, postsLoading } = useGetPosts();
 
   const [sortBy, setSortBy] = useState('latest');
@@ -43,7 +43,24 @@ export function PostListView() {
 
   return (
     <DashboardContent>
-      <CustomBreadcrumbs heading="Home" sx={{ mb: { xs: 3, md: 5 } }} />
+      <CustomBreadcrumbs
+        heading="Projects"
+        links={[
+          { name: 'Home', href: paths.dashboard.root },
+          { name: 'Projects', href: paths.dashboard.post.root },
+        ]}
+        action={
+          <Button
+            component={RouterLink}
+            href={paths.dashboard.post.new}
+            variant="contained"
+            startIcon={<Iconify icon="mingcute:add-line" />}
+          >
+            New post
+          </Button>
+        }
+        sx={{ mb: { xs: 3, md: 5 } }}
+      />
 
       <Box
         sx={{
@@ -55,7 +72,7 @@ export function PostListView() {
           alignItems: { xs: 'flex-end', sm: 'center' },
         }}
       >
-        <PostSearch redirectPath={(projectId: string) => paths.dashboard.post.details(projectId)} />
+        <PostSearch redirectPath={(title: string) => paths.dashboard.post.details(title)} />
 
         <PostSort
           sort={sortBy}
@@ -63,6 +80,28 @@ export function PostListView() {
           sortOptions={POST_SORT_OPTIONS}
         />
       </Box>
+
+      <Tabs value={state.publish} onChange={handleFilterPublish} sx={{ mb: { xs: 3, md: 5 } }}>
+        {['all', 'published', 'draft'].map((tab) => (
+          <Tab
+            key={tab}
+            iconPosition="end"
+            value={tab}
+            label={tab}
+            icon={
+              <Label
+                variant={((tab === 'all' || tab === state.publish) && 'filled') || 'soft'}
+                color={(tab === 'published' && 'info') || 'default'}
+              >
+                {tab === 'all' && posts.length}
+                {tab === 'published' && posts.filter((post) => post.publish === 'published').length}
+                {tab === 'draft' && posts.filter((post) => post.publish === 'draft').length}
+              </Label>
+            }
+            sx={{ textTransform: 'capitalize' }}
+          />
+        ))}
+      </Tabs>
 
       <PostListHorizontal posts={dataFiltered} loading={postsLoading} />
     </DashboardContent>

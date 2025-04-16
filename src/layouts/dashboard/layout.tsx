@@ -29,7 +29,6 @@ import { LayoutSection } from '../core/layout-section';
 import { AccountDrawer } from '../components/account-drawer';
 import { SettingsButton } from '../components/settings-button';
 import { LanguagePopover } from '../components/language-popover';
-import { ContactsPopover } from '../components/contacts-popover';
 import { WorkspacesPopover } from '../components/workspaces-popover';
 import { navData as dashboardNavData } from '../nav-config-dashboard';
 import { dashboardLayoutVars, dashboardNavColorVars } from './css-vars';
@@ -148,9 +147,6 @@ export function DashboardLayout({
 
           {/** @slot Notifications popover */}
           <NotificationsDrawer data={_notifications} />
-
-          {/** @slot Contacts popover */}
-          <ContactsPopover data={_contacts} />
 
           {/** @slot Settings button */}
           <SettingsButton />

@@ -45,12 +45,12 @@ export const paths = {
   // DASHBOARD
   dashboard: {
     root: ROOTS.DASHBOARD,
-    two: `${ROOTS.DASHBOARD}/two`,
+    projects: `${ROOTS.DASHBOARD}/projects`,
     three: `${ROOTS.DASHBOARD}/three`,
     post: {
       root: `${ROOTS.DASHBOARD}/post`,
       new: `${ROOTS.DASHBOARD}/post/new`,
-      details: (title: string) => `${ROOTS.DASHBOARD}/post/${kebabCase(title)}`,
+      details: (projectId: string) => `${ROOTS.DASHBOARD}/post/${kebabCase(projectId)}`,
       edit: (title: string) => `${ROOTS.DASHBOARD}/post/${kebabCase(title)}/edit`,
       demo: {
         details: `${ROOTS.DASHBOARD}/post/${kebabCase(MOCK_UP)}`,
