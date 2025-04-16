@@ -7,9 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
+//import { GoogleIcon } from 'src/assets/icons';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -49,14 +51,8 @@ export function JwtSignInView() {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const defaultValues: SignInSchemaType = {
-    email: 'demo@minimals.cc',
-    password: '@2Minimal',
-  };
-
   const methods = useForm<SignInSchemaType>({
     resolver: zodResolver(SignInSchema),
-    defaultValues,
   });
 
   const {
@@ -69,7 +65,7 @@ export function JwtSignInView() {
       await signInWithPassword({ email: data.email, password: data.password });
       await checkUserSession?.();
 
-      router.refresh();
+      router.push(paths.dashboard.root);
     } catch (error) {
       console.error(error);
       const feedbackMessage = getErrorMessage(error);
@@ -79,23 +75,12 @@ export function JwtSignInView() {
 
   const renderForm = () => (
     <Box sx={{ gap: 3, display: 'flex', flexDirection: 'column' }}>
-      <Field.Text name="email" label="Email address" slotProps={{ inputLabel: { shrink: true } }} />
+      <Field.Text name="email" placeholder="Email" slotProps={{ inputLabel: { shrink: true } }} />
 
       <Box sx={{ gap: 1.5, display: 'flex', flexDirection: 'column' }}>
-        <Link
-          component={RouterLink}
-          href="#"
-          variant="body2"
-          color="inherit"
-          sx={{ alignSelf: 'flex-end' }}
-        >
-          Forgot password?
-        </Link>
-
         <Field.Text
           name="password"
-          label="Password"
-          placeholder="6+ characters"
+          placeholder="Mật khẩu"
           type={showPassword.value ? 'text' : 'password'}
           slotProps={{
             inputLabel: { shrink: true },
@@ -112,8 +97,16 @@ export function JwtSignInView() {
             },
           }}
         />
+        <Link
+          component={RouterLink}
+          href="#"
+          variant="body2"
+          color="inherit"
+          sx={{ alignSelf: 'flex-end' }}
+        >
+          Quên mật khẩu?
+        </Link>
       </Box>
-
       <LoadingButton
         fullWidth
         color="inherit"
@@ -123,31 +116,16 @@ export function JwtSignInView() {
         loading={isSubmitting}
         loadingIndicator="Sign in..."
       >
-        Sign in
+        Đăng nhập
       </LoadingButton>
+      <div>Hoặc</div>
+      <Button variant="outlined">Đăng nhập với Google</Button>
     </Box>
   );
 
   return (
     <>
-      <FormHead
-        title="Sign in to your account"
-        description={
-          <>
-            {`Don’t have an account? `}
-            <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
-              Get started
-            </Link>
-          </>
-        }
-        sx={{ textAlign: { xs: 'center', md: 'left' } }}
-      />
-
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Use <strong>{defaultValues.email}</strong>
-        {' with password '}
-        <strong>{defaultValues.password}</strong>
-      </Alert>
+      <FormHead title="Đăng nhập" sx={{ textAlign: { xs: 'center', md: 'left' } }} />
 
       {!!errorMessage && (
         <Alert severity="error" sx={{ mb: 3 }}>
@@ -158,6 +136,12 @@ export function JwtSignInView() {
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm()}
       </Form>
+      <div>
+        {`Chưa có tài khoản? `}
+        <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
+          Đăng ký
+        </Link>
+      </div>
     </>
   );
 }

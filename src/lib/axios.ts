@@ -30,24 +30,31 @@ export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
   }
 };
 
+export const poster = async (args: string | [string, AxiosRequestConfig]) => {
+  try {
+    const [url, config] = Array.isArray(args) ? args : [args];
+
+    const res = await axiosInstance.post(url, { ...config });
+
+    return res.data;
+  } catch (error) {
+    console.error('Failed to fetch:', error);
+    throw error;
+  }
+};
+
 // ----------------------------------------------------------------------
+const PREFIX = '/launchpad/api/v1/user';
 
 export const endpoints = {
-  chat: '/api/chat',
-  kanban: '/api/kanban',
-  calendar: '/api/calendar',
-  auth: {
-    me: '/api/auth/me',
-    signIn: '/api/auth/sign-in',
-    signUp: '/api/auth/sign-up',
-  },
+  auth: { signIn: `${PREFIX}/login`, signUp: `${PREFIX}/register` },
   mail: {
     list: '/api/mail/list',
     details: '/api/mail/details',
     labels: '/api/mail/labels',
   },
   post: {
-    list: '/api/post/list',
+    list: '/launchpad/api/v2/project/list',
     details: '/api/post/details',
     latest: '/api/post/latest',
     search: '/api/post/search',
